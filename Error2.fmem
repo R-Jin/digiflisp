@@ -1,0 +1,34 @@
+QAflisp - FLISP Absolute crossassembler, Version 1.2
+(c) GMV 1989-2021
+File: Error2.fmem
+
+ # ClearAllMemory
+ # ClearAllRegisters
+ #setMemory  00=3F
+ #setMemory  01=06
+ #setMemory  02=5B
+ #setMemory  03=4F
+ #setMemory  04=66
+ #setMemory  05=6D
+ #setMemory  06=7D
+ #setMemory  07=07
+ #setMemory  08=7F
+ #setMemory  09=67
+ #setMemory  20=90
+ #setMemory  21=00
+ #setMemory  22=A1
+ #setMemory  23=FC
+ #setMemory  24=F9
+ #setMemory  25=00
+ #setMemory  26=97
+ #setMemory  27=0A
+ #setMemory  28=28
+ #setMemory  29=02
+ #setMemory  2A=21
+ #setMemory  2B=02
+ #setMemory  2C=F0
+ #setMemory  2D=79
+ #setMemory  2E=E1
+ #setMemory  2F=FB
+ #setMemory  30=33
+ #setMemory  31=20

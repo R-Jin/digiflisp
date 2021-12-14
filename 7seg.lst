@@ -1,0 +1,19 @@
+QAflisp - FLISP Absolute crossassembler, Version 1.2
+(c) GMV 1989-2021
+
+
+File: 7seg.lst
+FC                      1. DIPSWITCH:	EQU	$FC
+---- File: "7seg.sflisp"
+FB                      2. SEGMENT7:	EQU	$FB
+00                      3. 		ORG	$00
+00 3F 06 5B 4F 66 6D    4. seg_table:	FCB	$3F,$06,$5B,$4F,$66,$6D,$7D,$07,$7F,$67
+     7D 07 7F 67      
+                        5. 
+20                      6. 		ORG	$20
+20 90 00                7. start:		LDX	#seg_table
+22 F1 FC                8. 		LDA	DIPSWITCH
+24 F4                   9. DisplaySeg:	LDA	A,X
+25 E1 FB               10. 		STA	SEGMENT7
+27 33 20               11. 		JMP	start
+FF                     12. 		ORG	$FF
