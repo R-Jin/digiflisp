@@ -1,0 +1,36 @@
+QAflisp - FLISP Absolute crossassembler, Version 1.2
+(c) GMV 1989-2021
+File: stepperMotor.fmem
+
+ # ClearAllMemory
+ # ClearAllRegisters
+ #setMemory  00=05
+ #setMemory  01=06
+ #setMemory  02=0A
+ #setMemory  03=09
+ #setMemory  20=90
+ #setMemory  21=00
+ #setMemory  22=20
+ #setMemory  23=0C
+ #setMemory  24=F5
+ #setMemory  25=E1
+ #setMemory  26=FB
+ #setMemory  27=9C
+ #setMemory  28=04
+ #setMemory  29=24
+ #setMemory  2A=F5
+ #setMemory  2B=33
+ #setMemory  2C=22
+ #setMemory  30=10
+ #setMemory  31=13
+ #setMemory  32=F1
+ #setMemory  33=FC
+ #setMemory  34=08
+ #setMemory  35=24
+ #setMemory  36=02
+ #setMemory  37=21
+ #setMemory  38=FB
+ #setMemory  39=17
+ #setMemory  3A=14
+ #setMemory  3B=43
+ #setMemory  FF=20

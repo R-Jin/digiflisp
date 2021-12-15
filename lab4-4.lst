@@ -1,0 +1,135 @@
+QAflisp - FLISP Absolute crossassembler, Version 1.2
+(c) GMV 1989-2021
+
+
+File: lab4-4.lst
+FC                      1. Inport	EQU	$FC
+---- File: "lab4-4.sflisp"
+FB                      2. Utport	EQU	$FB
+05                      3. DelayC1	EQU	$5		;Dessa konstanter styr hur lång fördröjning Delay1s orsakar.
+02                      4. DelayC2	EQU	$2		;Ändra dem eventuellt i labbet så att fördröjnigen blir rimligt lång.
+                        5. 
+FF                      6. 	ORG	$FF
+FF 20                   7. 	FCB	$20
+                        8. 
+20                      9. 	ORG	$20
+                       10. 
+20                     11. Main:
+20 F1 00               12. 	LDA	$00
+22                     13. ErrorCheck:
+22 E1 FB               14. 	STA	Utport
+24 34 47               15. 	JSR	ReadAscii
+26 94 41               16. 	SUBA	#$41
+28 22 06               17. 	BMI	Error
+2A 97 25               18. 	CMPA	#$25
+2C 23 02               19. 	BPL	Error
+2E 21 04               20. 	BRA	Continue
+30                     21. Error:
+30 F0 FF               22. 	LDA	#$FF
+32 21 EE               23. 	BRA 	ErrorCheck
+34                     24. Continue:
+34 0B                  25. 	LSLA
+35 10                  26. 	PSHA
+36 90 7C               27. 	LDX	#MorseCode
+38 F4                  28. 	LDA	A,X
+39 E1 7B               29. 	STA	Count
+3B 14                  30. 	PULA
+3C 07                  31. 	INCA
+3D F4                  32. 	LDA	A,X
+3E                     33. MorseLoop:
+3E 34 51               34. 	JSR	BlinkLight
+40 0B                  35. 	LSLA
+41 38 7B               36. 	DEC	Count
+43 25 F9               37. 	BNE	MorseLoop
+                       38. 
+45 21 D9               39. 	BRA	Main
+                       40. 
+                       41. 
+47                     42. ReadAscii:
+47 F1 FC               43. 	LDA	Inport
+49 10                  44. 	PSHA
+4A 99 01               45. 	ANDA 	#$01
+4C 24 F9               46. 	BEQ 	ReadAscii
+4E 14                  47. 	PULA
+4F 0C                  48. 	LSRA
+50 43                  49. 	RTS
+51                     50. 	
+51                     51. BlinkLight:
+51 10                  52. 	PSHA
+52 90 FF               53. 	LDX	#$FF
+54 30 FB               54. 	STX	Utport
+                       55. 
+56 99 80               56. 	ANDA	#$80
+58 24 09               57. 	BEQ	short
+5A F0 04               58. 	LDA	#$04
+5C                     59. long:
+5C 34 67               60. 	JSR 	Delay1s
+5E 08                  61. 	DECA	
+5F 25 FB               62. 	BNE	long
+61 14                  63. 	PULA
+62 43                  64. 	RTS
+                       65. 
+63                     66. short:
+63 34 67               67. 	JSR	Delay1s
+65 14                  68. 	PULA
+66 43                  69. 	RTS
+67                     70. 	
+67                     71. 	
+                       72. ; Orsakar en fördröjning på ungefär 1s i simulatorn (vid snabb exekveringshastighet)
+                       73. ; Ändrar inga register
+67                     74. Delay1s:
+67 10                  75. 	PSHA
+68 11                  76. 	PSHX
+69 13                  77. 	PSHC
+6A 90 02               78. 	LDX	#DelayC2
+6C                     79. Delay1s_loop2:
+6C F0 05               80. 	LDA	#DelayC1
+6E                     81. Delay1s_loop:
+6E 08                  82. 	DECA
+6F 25 FD               83. 	BNE	Delay1s_loop
+71 CC FF               84. 	LEAX	-1,X
+73 9C 00               85. 	CMPX	#0
+75 25 F5               86. 	BNE	Delay1s_loop2
+77 17                  87. 	PULC
+78 15                  88. 	PULX
+79 14                  89. 	PULA
+7A 43                  90. 	RTS
+                       91. 
+                       92. ; Data - Variabler
+7B                     93. Count:
+7B 00                  94. 	RMB	1
+                       95. 
+                       96. ; Data - Konstanter
+7C                     97. MorseCode:
+7C 02 40               98. 	FCB	2,%01000000 ;'A'
+7E 04 80               99. 	FCB	4,%10000000 ;'B'
+80 04 A0              100. 	FCB	4,%10100000 ;'C'
+82 03 80              101. 	FCB	3,%10000000 ;'D'
+84 01 00              102. 	FCB	1,%00000000 ;'E'
+86 04 20              103. 	FCB	4,%00100000 ;'F'
+88 03 C0              104. 	FCB	3,%11000000 ;'G'
+8A 04 00              105. 	FCB	4,%00000000 ;'H'
+8C 02 00              106. 	FCB	2,%00000000 ;'I'
+8E 04 70              107. 	FCB	4,%01110000 ;'J'
+90 03 A0              108. 	FCB	3,%10100000 ;'K'
+92 04 40              109. 	FCB	4,%01000000 ;'L'
+94 02 C0              110. 	FCB	2,%11000000 ;'M'
+96 02 80              111. 	FCB	2,%10000000 ;'N'
+98 03 E0              112. 	FCB	3,%11100000 ;'O'
+9A 04 60              113. 	FCB	4,%01100000 ;'P'
+9C 04 D0              114. 	FCB	4,%11010000 ;'Q'
+9E 03 40              115. 	FCB	3,%01000000 ;'R'
+A0 03 00              116. 	FCB	3,%00000000 ;'S'
+A2 01 80              117. 	FCB	1,%10000000 ;'T'
+A4 03 20              118. 	FCB	3,%00100000 ;'U'
+A6 04 10              119. 	FCB	4,%00010000 ;'V'
+A8 03 60              120. 	FCB	3,%01100000 ;'W'
+AA 04 90              121. 	FCB	4,%10010000 ;'X'
+AC 04 B0              122. 	FCB	4,%10110000 ;'Y'
+AE 04 C0              123. 	FCB	4,%11000000 ;'Z'
+B0                    124. 	
+B0                    125. 	
+B0                    126. 	
+B0                    127. 	
+B0                    128. 	
+B0                    129. 	

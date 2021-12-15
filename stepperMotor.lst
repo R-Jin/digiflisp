@@ -1,0 +1,33 @@
+QAflisp - FLISP Absolute crossassembler, Version 1.2
+(c) GMV 1989-2021
+
+
+File: stepperMotor.lst
+00                      1. 		ORG	$0
+---- File: "stepperMotor.sflisp"
+FC                      2. INPUT:		EQU	$FC
+FB                      3. OUTPUT:		EQU	$FB
+00 05 06 0A 09          4. STATES:		FCB	$05,$06,$0A,$09
+                        5. 
+20                      6. 		ORG	$20
+20 90 00                7. start:		LDX	#STATES
+22 20 0C                8. loop:		BSR	delay
+24 F5                   9. 		LDA	,X+
+25 E1 FB               10. 		STA	OUTPUT
+27 9C 04               11. 		CMPX	#4
+29 24 F5               12. 		BEQ	start
+2B 33 22               13. 		JMP	loop
+                       14. 
+30                     15. 		ORG	$30
+30 10                  16. delay:		PSHA
+31 13                  17. 		PSHC
+32 F1 FC               18. 		LDA	INPUT
+34 08                  19. delay_loop:	DECA
+35 24 02               20. 		BEQ	finished
+37 21 FB               21. 		BRA	delay_loop
+39 17                  22. finished:	PULC
+3A 14                  23. 		PULA
+3B 43                  24. 		RTS	
+3C                     25. 		
+FF                     26. 		ORG	$FF
+FF 20                  27. 		FCB	$20

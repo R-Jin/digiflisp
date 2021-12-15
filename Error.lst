@@ -17,11 +17,12 @@ FB                      4. SEGMENT7:	EQU	$FB
 20                     10. 		ORG	$20
 20 90 00               11. start:		LDX	#seg_table
 22 F1 FC               12. 		LDA	DIPSWITCH
-24 F4                  13. DisplaySeg:	LDA	A,X
-25 97 0A               14. ErrorCheck:	CMPA	#$0A
-27 28 02               15. 		BCS	If_Do
-29 21 02               16. 		BRA	If_End
-2B F0 79               17. If_Do:		LDA	#SEG_ERROR
-2D E1 FB               18. If_End:		STA	SEGMENT7
-2F 33 20               19. 		JMP	start
-FF                     20. 		ORG	$FF
+24 97 0A               13. ErrorCheck:	CMPA	#$0A
+26 28 04               14. 		BCS	If_Do
+28 F0 79               15. 		LDA	#SEG_ERROR
+2A 21 01               16. 		BRA 	End
+                       17. 
+2C F4                  18. If_Do:		LDA	A,X
+2D                     19. 		
+2D E1 FB               20. End:		STA	SEGMENT7
+2F 33 20               21. 		JMP	start

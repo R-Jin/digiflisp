@@ -10,11 +10,12 @@ seg_table:	FCB	$3F,$06,$5B,$4F,$66,$6D,$7D,$07,$7F,$67
 		ORG	$20
 start:		LDX	#seg_table
 		LDA	DIPSWITCH
-DisplaySeg:	LDA	A,X
 ErrorCheck:	CMPA	#$0A
 		BCS	If_Do
-		BRA	If_End
-If_Do:		LDA	#SEG_ERROR
-If_End:		STA	SEGMENT7
+		LDA	#SEG_ERROR
+		BRA 	End
+
+If_Do:		LDA	A,X
+		
+End:		STA	SEGMENT7
 		JMP	start
-		ORG	$FF

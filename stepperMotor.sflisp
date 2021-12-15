@@ -1,0 +1,27 @@
+		ORG	$0
+INPUT:		EQU	$FC
+OUTPUT:		EQU	$FB
+STATES:		FCB	$05,$06,$0A,$09
+
+		ORG	$20
+start:		LDX	#STATES
+loop:		BSR	delay
+		LDA	,X+
+		STA	OUTPUT
+		CMPX	#4
+		BEQ	start
+		JMP	loop
+
+		ORG	$30
+delay:		PSHA
+		PSHC
+		LDA	INPUT
+delay_loop:	DECA
+		BEQ	finished
+		BRA	delay_loop
+finished:	PULC
+		PULA
+		RTS	
+		
+		ORG	$FF
+		FCB	$20
