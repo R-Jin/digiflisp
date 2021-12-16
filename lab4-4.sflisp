@@ -60,7 +60,7 @@ long:
 	JSR 	Delay1s
 	DECA	
 	BNE	long
-	LDA	#$FF
+	LDA	#$00
 	STA	Utport
 	JSR	Delay1s
 	PULA
