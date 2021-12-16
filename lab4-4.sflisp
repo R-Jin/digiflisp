@@ -15,7 +15,7 @@ ErrorCheck:
 	JSR	ReadAscii
 	SUBA	#$41
 	BMI	Error
-	CMPA	#$25
+	CMPA	#26
 	BPL	Error
 	BRA	Continue
 Error:
