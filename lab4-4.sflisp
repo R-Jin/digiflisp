@@ -1,7 +1,7 @@
 Inport	EQU	$FC
 Utport	EQU	$FB
-DelayC1	EQU	$5		;Dessa konstanter styr hur lång fördröjning Delay1s orsakar.
-DelayC2	EQU	$2		;Ändra dem eventuellt i labbet så att fördröjnigen blir rimligt lång.
+DelayC1	EQU	$5		;Dessa konstanter styr hur lÃ¥ng fÃ¶rdrÃ¶jning Delay1s orsakar.
+DelayC2	EQU	$2		;Ã„ndra dem eventuellt i labbet sÃ¥ att fÃ¶rdrÃ¶jnigen blir rimligt lÃ¥ng.
 
 	ORG	$FF
 	FCB	$20
@@ -60,17 +60,23 @@ long:
 	JSR 	Delay1s
 	DECA	
 	BNE	long
+	LDA	#$FF
+	STA	Utport
+	JSR	Delay1s
 	PULA
 	RTS
 
 short:
 	JSR	Delay1s
+	LDA	#$00
+	STA	Utport
+	JSR	Delay1s
 	PULA
 	RTS
 	
 	
-; Orsakar en fördröjning på ungefär 1s i simulatorn (vid snabb exekveringshastighet)
-; Ändrar inga register
+; Orsakar en fÃ¶rdrÃ¶jning pÃ¥ ungefÃ¤r 1s i simulatorn (vid snabb exekveringshastighet)
+; Ã„ndrar inga register
 Delay1s:
 	PSHA
 	PSHX
